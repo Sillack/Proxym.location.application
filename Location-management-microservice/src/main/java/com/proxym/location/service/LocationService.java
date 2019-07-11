@@ -1,29 +1,17 @@
 package com.proxym.location.service;
 
-import com.proxym.location.dao.LocationRepository;
 import com.proxym.location.entity.Location;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class LocationService {
+public interface LocationService {
 
-    @Autowired
-    LocationRepository locationRepository;
+    List<Location> getAllLocations();
 
-    public List<Location> getAllLocations() {
-        return this.locationRepository.findAll();
-    }
+    Location addLocation(Location location);
 
-
-    public Location addLocation(Location location) {
-
-        return this.locationRepository.saveAndFlush(location);
-    }
-
-    public Location getLocationById(Integer id) {
-        return this.locationRepository.getOne(id);
-    }
+    Optional<Location> getLocationById(Integer id);
 }

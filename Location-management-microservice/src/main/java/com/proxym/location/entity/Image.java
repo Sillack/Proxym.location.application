@@ -18,10 +18,7 @@ public class Image {
     private String size;
     @Column(name = "CONFIGURATION")
     private String configuration;
-    //    @OneToOne(fetch = FetchType.LAZY,
-////            cascade =  CascadeType.ALL,
-//            mappedBy = "image")
-    @OneToOne(mappedBy = "image", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL)
     private Location location;
 
     public Image() {

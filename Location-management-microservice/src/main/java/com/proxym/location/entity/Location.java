@@ -19,19 +19,7 @@ public class Location {
     private String description;
     @Column(name = "ID_USER")
     private String id_user;
-//    @OneToOne
-//    private Image image;
-
-//    @OneToOne(mappedBy = "locations")
-//
-//    @OneToOne
-//    @MapsId
-//    private Image image;
-
-
-    //    @JoinColumn(name = "image_id", nullable = false)
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id", nullable = false, updatable = false, insertable = true)
+    @OneToOne(cascade = CascadeType.ALL)
     private Image image;
 
     public Location() {
