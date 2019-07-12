@@ -1,6 +1,5 @@
 package com.proxym.location.controller;
 
-import com.proxym.location.dto.Dto;
 import com.proxym.location.dto.LocationDto;
 import com.proxym.location.entity.Location;
 import com.proxym.location.service.LocationServiceImplementation;
@@ -12,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * @author Anis OURAJINI
+ */
 @RestController
 @Api(value = "Locations Management Service")
 @RequestMapping("/location")
@@ -27,34 +28,35 @@ public class LocationController {
     private ModelMapper modelMapper;
 
     @GetMapping(value = "/all")
-    @Dto(LocationDto.class)
-    public List<LocationDto> getAllUsers() {
+    public List<LocationDto> getAllLocations() {
         List<Location> locations = locationServiceImplementation.getAllLocations();
         return locations.stream()
                 .map(location -> convertToDto(location))
                 .collect(Collectors.toList());
     }
 
-    @ApiOperation(value = "Add a location")
-    @PostMapping("/addlocation")
-    @Dto(LocationDto.class)
-    public LocationDto addNewLocation(@RequestBody Location location) {
-//        Image image=new Image();
-//        image.setName("test");
-//        image.setSize("test");
-//        image.setConfiguration("test");
-//        Location location1=new Location();
-//        location1.setId_user("1");
-//        location1.setDescription("test");
-//        location1.setImage(image);
-        return convertToDto(this.locationServiceImplementation.addLocation(location));
+    @ApiOperation(value = "Get locations by user")
+    @RequestMapping(method = RequestMethod.GET, value = "/all/byuser")
+    public List<LocationDto> getAllLocations(Integer id_user) {
+        List<Location> locations = locationServiceImplementation
+                .getLocationForUser(id_user);
+        return locations.stream()
+                .map(location -> convertToDto(location))
+                .collect(Collectors.toList());
     }
 
+    @ApiOperation(value = "Add location")
+    @PostMapping("/addlocation")
+    public LocationDto addNewLocation(@RequestBody LocationDto locationDto) throws ParseException {
+        Location location = convertToEntity(locationDto);
+        Location locationCreated = locationServiceImplementation.addLocation(location);
+        return convertToDto(locationCreated);
+    }
 
+    @ApiOperation(value = "get location by id")
     @GetMapping("/{id}")
-//    @Dto(LocationDto.class)
-    public Optional<Location> getLocationById(@PathVariable(value = "id") Integer id) {
-        return this.locationServiceImplementation.getLocationById(id);
+    public LocationDto getLocationById(@PathVariable("id") Integer id) {
+        return convertToDto(locationServiceImplementation.getLocationById(id));
     }
 
 

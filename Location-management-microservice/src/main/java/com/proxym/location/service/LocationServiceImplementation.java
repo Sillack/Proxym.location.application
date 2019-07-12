@@ -1,12 +1,11 @@
 package com.proxym.location.service;
 
-import com.proxym.location.dao.LocationRepository;
 import com.proxym.location.entity.Location;
+import com.proxym.location.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LocationServiceImplementation implements LocationService {
@@ -21,18 +20,20 @@ public class LocationServiceImplementation implements LocationService {
 
     @Override
     public Location addLocation(Location location) {
-        try {
             return this.locationRepository.save(location);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
-    public Optional<Location> getLocationById(Integer id) {
-        return this.locationRepository.findById(id);
+    public Location getLocationById(Integer id) {
+        return this.locationRepository.getOne(id);
     }
+
+    @Override
+    public List<Location> getLocationForUser(Integer user_id) {
+        List<Location> locations = (List<Location>) locationRepository
+                .getLocationForUser(user_id);
+        return locations;
+    }
+
 
 }

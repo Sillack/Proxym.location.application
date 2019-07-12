@@ -1,5 +1,8 @@
 package com.proxym.auth0;
 
+/**
+ * @author Anis OURAJINI
+ */
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

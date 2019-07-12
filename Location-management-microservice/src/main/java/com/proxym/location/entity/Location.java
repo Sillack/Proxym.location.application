@@ -1,5 +1,8 @@
 package com.proxym.location.entity;
 
+/**
+ * @author Anis OURAJINI
+ */
 import javax.persistence.*;
 
 
@@ -7,7 +10,6 @@ import javax.persistence.*;
 @Table(name = "locations")
 public class Location {
 
-    //    @Column(name = "ID")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,14 +20,14 @@ public class Location {
     @Column(name = "DESCRIPTION")
     private String description;
     @Column(name = "ID_USER")
-    private String id_user;
+    private Integer id_user;
     @OneToOne(cascade = CascadeType.ALL)
     private Image image;
 
     public Location() {
     }
 
-    public Location(String name, String place, String description, String id_user, Image image) {
+    public Location(String name, String place, String description, Integer id_user, Image image) {
         this.name = name;
         this.place = place;
         this.description = description;
@@ -73,11 +75,11 @@ public class Location {
         this.description = description;
     }
 
-    public String getId_user() {
+    public Integer getId_user() {
         return id_user;
     }
 
-    public void setId_user(String id_user) {
+    public void setId_user(Integer id_user) {
         this.id_user = id_user;
     }
 }

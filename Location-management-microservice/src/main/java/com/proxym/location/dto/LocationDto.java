@@ -1,5 +1,8 @@
 package com.proxym.location.dto;
 
+/**
+ * @author Anis OURAJINI
+ */
 import com.proxym.location.entity.Image;
 
 
@@ -14,14 +17,14 @@ public class LocationDto {
 
     private String description;
 
-    private String id_user;
+    private Integer id_user;
 
     private Image image;
 
     public LocationDto() {
     }
 
-    public LocationDto(Integer id, String name, String place, String description, String id_user, Image image) {
+    public LocationDto(Integer id, String name, String place, String description, Integer id_user, Image image) {
         this.id = id;
         this.name = name;
         this.place = place;
@@ -62,11 +65,11 @@ public class LocationDto {
         this.description = description;
     }
 
-    public String getId_user() {
+    public Integer getId_user() {
         return id_user;
     }
 
-    public void setId_user(String id_user) {
+    public void setId_user(Integer id_user) {
         this.id_user = id_user;
     }
 

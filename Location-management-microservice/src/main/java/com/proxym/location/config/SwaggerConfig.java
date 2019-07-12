@@ -1,5 +1,8 @@
 package com.proxym.location.config;
 
+/**
+ * @author Anis OURAJINI
+ */
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,5 +1,8 @@
 package com.proxym.location.entity;
 
+/**
+ * @author Anis OURAJINI
+ */
 
 import javax.persistence.*;
 
@@ -7,8 +10,6 @@ import javax.persistence.*;
 @Table(name = "images")
 public class Image {
 
-
-    //    @Column(name = "ID")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -16,8 +17,8 @@ public class Image {
     private String name;
     @Column(name = "SIZE")
     private String size;
-    @Column(name = "CONFIGURATION")
-    private String configuration;
+    @Column(name = "CONTENT")
+    private String content;
     @OneToOne(mappedBy = "image", cascade = CascadeType.ALL)
     private Location location;
 
@@ -27,7 +28,7 @@ public class Image {
     public Image(String name, String size, String configuration, Location location) {
         this.name = name;
         this.size = size;
-        this.configuration = configuration;
+        this.content = configuration;
         this.location = location;
     }
 
@@ -64,10 +65,10 @@ public class Image {
     }
 
     public String getConfiguration() {
-        return configuration;
+        return content;
     }
 
     public void setConfiguration(String configuration) {
-        this.configuration = configuration;
+        this.content = configuration;
     }
 }

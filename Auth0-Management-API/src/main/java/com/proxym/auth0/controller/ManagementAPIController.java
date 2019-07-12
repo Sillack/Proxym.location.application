@@ -1,5 +1,8 @@
 package com.proxym.auth0.controller;
 
+/**
+ * @author Anis OURAJINI
+ */
 import com.auth0.jwk.JwkProvider;
 import com.auth0.jwk.UrlJwkProvider;
 import com.auth0.jwt.JWT;
@@ -20,7 +23,6 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-//@RequestMapping("Proxym")
 public class ManagementAPIController {
 
     private ResponseEntity<List<ApplicationUsersDetails>> entity_application_users = null;
@@ -81,12 +83,6 @@ public class ManagementAPIController {
                 HttpMethod.POST, httpEntity,
                 UserLoginDetails.class);
 
-        //HttpHeaders hty = new HttpHeaders();
-        //hty.add("token",getAccessTokenForApplication().getAccess_token());
-
-            /*return ResponseEntity.ok()
-                    .headers(hty)
-                    .body(response.getBody());*/
         return response;
 
 
@@ -104,14 +100,7 @@ public class ManagementAPIController {
         ResponseEntity<ApplicationUsersDetails> response_entity = restTemplate.exchange("https://dev-ay9wi6hz.auth0.com/api/v2/users",
                 HttpMethod.POST, httpEntity,
                 ApplicationUsersDetails.class);
-            /* this.create_user = new ApplicationUsersDetails(response_entity.getBody().getLast_ip(),
-                    response_entity.getBody().getEmail_verified(),response_entity.getBody().getLast_login(),
-                    response_entity.getBody().getCreated_at(),response_entity.getBody().getPicture(),
-                    response_entity.getBody().getLogins_count(),
-                    response_entity.getBody().getIdentities(),response_entity.getBody().getUpdated_at(),
-                    response_entity.getBody().getUser_id(),response_entity.getBody().getName(),
-                    response_entity.getBody().getNickname(),response_entity.getBody().getEmail(),
-                    response_entity.getBody().getLast_password_reset());*/
+
         return response_entity;
     }
 
@@ -170,7 +159,7 @@ public class ManagementAPIController {
 
     }
 
-
+    @RequestMapping(method = RequestMethod.GET, value = "/expiration")
     public boolean verifyTokenExpiration(String jwtToken) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         String[] split_string = jwtToken.split("\\."); // decode jwt
@@ -190,12 +179,6 @@ public class ManagementAPIController {
         if (nowtimestamp > dateeexpiration) return false;
         else return true;
 
-    }
-
-    @RequestMapping("/test")
-    public String test() {
-        return "test test"
-                ;
     }
 
 

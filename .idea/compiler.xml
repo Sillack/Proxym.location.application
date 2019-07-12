@@ -9,8 +9,8 @@
         <module name="Location-management-microservice" />
         <module name="Management-API" />
         <module name="zuul-server" />
-        <module name="Eureka-server" />
         <module name="User-Management-microservice" />
+        <module name="Eureka-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

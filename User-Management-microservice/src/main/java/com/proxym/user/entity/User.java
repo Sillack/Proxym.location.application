@@ -1,37 +1,48 @@
 package com.proxym.user.entity;
 
+/**
+ * @author Anis OURAJINI
+ */
 import com.proxym.user.emum.UserTypeEnum;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
 @Table(name = "users")
 public class User {
 
-    @Column(name = "ID")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "FULL_NAME", nullable = true, length = 255)
+    @NotNull
+    @Column(name = "FULL_NAME")
     private String full_name;
+    @NotNull
     @Column(name = "USER_TYPE")
     @Enumerated(EnumType.STRING)
     private UserTypeEnum user_type;
-    @Column(name = "ADDRESS", nullable = true, length = 255)
+    @NotNull
+    @Column(name = "ADDRESS")
     private String address;
-    @Column(name = "EMAIL", nullable = false, unique = true, length = 255)
+    @NotNull
+    @Column(name = "EMAIL")
     @Email
     private String email;
 
     protected User() {
     }
-    /*@CreatedDate
-    private Date createdAt;
 
-    @LastModifiedDate
-    private Date modifiedAt;*/
+    public User(@NotNull String full_name, @NotNull UserTypeEnum user_type, @NotNull String address, @NotNull @UniqueElements @Email String email) {
+        this.full_name = full_name;
+        this.user_type = user_type;
+        this.address = address;
+        this.email = email;
+    }
+
 
     public Integer getId() {
         return id;
@@ -73,15 +84,4 @@ public class User {
         this.email = email;
     }
 
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", full_name='" + full_name + '\'' +
-                ", user_type='" + user_type + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

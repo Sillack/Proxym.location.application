@@ -1,5 +1,8 @@
-package com.proxym;
+package com.proxym.zuul.custom.exception;
 
+/**
+ * @author Anis OURAJINI
+ */
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.slf4j.Logger;
@@ -13,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Component
 @RefreshScope
 @RestController
-public class CustomInvalideSignatureException extends ZuulFilter {
+public class CustomInvalideTokenSignatureException extends ZuulFilter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CustomInvalideSignatureException.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CustomInvalideTokenSignatureException.class);
 
     @Override
     public String filterType() {
@@ -24,13 +27,12 @@ public class CustomInvalideSignatureException extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 2; // Needs to run before SendErrorFilter which has filterOrder == 0
+        return 2;
     }
 
     @Override
     public boolean shouldFilter() {
-        // only forward to errorPath if it hasn't been forwarded to already
-        // return RequestContext.getCurrentContext().containsKey("UNAUTHORIZED");
+
         return true;
     }
 
@@ -38,14 +40,14 @@ public class CustomInvalideSignatureException extends ZuulFilter {
     public Object run() {
         try {
             RequestContext ctx = RequestContext.getCurrentContext();
-            Object e = ctx.get("UNAUTHORIZED");
+            Object e = ctx.get("401 UNAUTHORIZED");
 
             if (e != null) {
                 //ZuulException zuulException = (ZuulException)e;
                 // LOG.error("Zuul failure detected: " + zuulException.getMessage(), zuulException);
                 LOG.error("Zuul failure detected: ");
                 // Remove error code to prevent further error handling in follow up filters
-                ctx.remove("UNAUTHORIZED");
+                ctx.remove("401 UNAUTHORIZED");
 
                 // Populate context with new response values
                 ctx.setResponseBody("UNAUTHORIZED Request : Token invalid");
